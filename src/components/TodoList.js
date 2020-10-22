@@ -2,13 +2,18 @@ import React from 'react'
 import { Checkbox, List, ListItem, ListItemText, ListItemIcon, IconButton } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeTodo, deleteTodo } from '../redux/reduxActions'
 
 const TodoListStyles = styled.div`
     width: 35%;
     margin: 40px auto;
   `
 
-const TodoList = ({ todos, changeStatus, deleteTodo }) => {
+const TodoList = () => {
+  const todos = useSelector(state => state)
+  const dispatch = useDispatch()
+
   const nameStyle = (todoState) => todoState 
     ? {
       textDecoration: "line-through"
@@ -25,9 +30,9 @@ const TodoList = ({ todos, changeStatus, deleteTodo }) => {
           tabIndex={-1}
           disableRipple
           checked={todo.completed}
-          onClick={() => changeStatus(todo.id)}
+          onClick={() => dispatch(changeTodo(todo.id))}
         />
-        <IconButton edge="end" onClick={() => deleteTodo(todo.id)}>
+        <IconButton edge="end" onClick={() => dispatch(deleteTodo(todo.id))}>
           <Delete />
         </IconButton>
       </ListItemIcon>

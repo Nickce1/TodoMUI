@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addTodo } from '../redux/reduxActions'
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -24,12 +26,14 @@ const AddTodoStyle = styled.div`
     }
   `
 
-const AddTodo = ({ addTodo }) => {
+const AddTodo = () => {
   const [todoName, setTodoName] = useState('')
+  
+  const dispatch = useDispatch()
 
   const addToTodoList = name => {
-    addTodo(name)
     setTodoName('')
+    return dispatch(addTodo(name))
   }
 
   return (
